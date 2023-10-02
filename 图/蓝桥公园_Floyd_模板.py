@@ -5,6 +5,9 @@ import os
 # 已知公园有N个景点，景点和景点之间一共有M条道路。
 # 小明有Q个观景计划，每个计划包含一个起点st和一个终点ed,表示他想从st去到ed。
 # 但是小明的体力有限,对于每个计划他想走最少的路完成，你可以帮帮他吗?(输出每个计划的最短路径)
+
+# 输入:n行m列 q个计划
+
 # 测试数据:
 # 3 3 3
 # 1 2 1
@@ -14,11 +17,14 @@ import os
 # 1 3
 # 2 3
 
+### 可以求任意两点间的最短路径
+
 
 INF = float('inf')
 
 n, m, q = map(int, input().split())
 dis = [[INF] * (n + 1) for i in range(n + 1)]
+# path数组代表去某个点的最短路径的下一步要到哪个点
 path = [list(range(n + 1)) for i in range(n + 1)]  # 初始化path数组 -- 默认u能直接到v
 for i in range(1, n + 1):
     dis[i][i] = 0  # 到达本身

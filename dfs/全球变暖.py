@@ -12,7 +12,7 @@ old_g = copy.deepcopy(g)
 
 
 def dfs(x, y):  # 是否能存活
-    flag = True
+    flag = True # 1.当前点是否能活下来
     for i in range(4):
         tx, ty = x + dx[i], y + dy[i]
         if 0 <= tx < n and 0 <= ty < n:
@@ -20,7 +20,7 @@ def dfs(x, y):  # 是否能存活
                 flag = False
                 break
     f = [False] * 4
-    for j in range(4):
+    for j in range(4): # 2.这个循环的作用是判断上下左右点有没有能活下来的
         tx, ty = x + dx[j], y + dy[j]
         if tx < 0 or ty < 0 or tx >= n or ty >= n or g[tx][ty] == '.':
             continue

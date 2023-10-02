@@ -9,7 +9,7 @@
 # 输出仅一行,共N个数,分别表示从皇宫到编号为1 ~ N建筑的最短距离,两两之间用空格隔开。(如果无法到达则输出-1)
 
 # 解题思路:
-### 求图 的源点 到其他点的 最短路径, 推荐用dijkstra
+### 求图 的源点 到其他点的 最短路径(单源最短路径), 推荐用dijkstra
 #  * Dijkstra算法采用的是一种贪心的策略, 用来算出起点到各点的最短距离 (额外加上个前驱prev[]也能逆推处到各点的最短路径)
 #  * 1.声明.
 #  *      声明一个距离数组dis --- 来保存源点到各个顶点的待定最短距离
@@ -39,19 +39,21 @@ for j in range(M):
     edges[u].append([v, w])
 
 dis = [INF] * (N+1)
-hq = [(0, 1)]  # [(dis[u], u)] , 小顶堆, 元组的第一个元素为priority权重
 vis = [False] * (N+1)   # 注: 这里加上一个vis数组, 是因为可能两点间不止一条道路
 prev = [] * (N+1)  # 放置前驱顶点, 用于求最短路径
 
+hq = [(0, 1)]  # [(dis[u], u)] , 小顶堆, 元组的第一个元素为priority权重
 dis[1] = 0
+
 while hq:
     d, u = heapq.heappop(hq)
     if vis[u] == True:
         continue
     vis[u] = True
-    for v, w in edges[u]:
+    for v, w in edges[u]: # 与点u之间有边相连的点集v
         if dis[v] > dis[u] + w:
             dis[v] = dis[u] + w
+            prev[v] = u
             heapq.heappush(hq, (dis[v], v))
 
 print(dis)
